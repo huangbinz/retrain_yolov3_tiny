@@ -102,3 +102,13 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# my ignore
+backup/
+yolov3-tiny.conv.15
+**/*.weights
+datasets/**/*.jpg
+datasets/**/*.png
+datasets/**/*.txt
+datasets/**/*.xml
+
