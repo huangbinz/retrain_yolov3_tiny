@@ -7,9 +7,9 @@ import cv2
 
 def flip_pictures_tb(pic_dir, save_path):
     """
-    将制定文件夹下的图片上下翻转一下
-    :param pic_dir:
-    :param save_path:
+    将指定文件夹下的图片上下翻转一下
+    :param pic_dir: 需要翻转的图片所在的文件夹
+    :param save_path: 将翻转后的图片保存到的文件夹
     :return:
     """
     if not os.path.exists(pic_dir):
@@ -32,7 +32,7 @@ def flip_pictures_tb(pic_dir, save_path):
 def flip_pictures_lr(pic_dir):
     """
     将制定文件夹下的图片左右翻转一下
-    :param pic_dir:
+    :param pic_dir: 需要翻转的图片所在的文件夹
     :return:
     """
     if not os.path.exists(pic_dir):
