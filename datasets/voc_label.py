@@ -2,7 +2,10 @@ import xml.etree.ElementTree as ET
 import os
 
 
-classes = ["right_shoe", "left_shoe"]
+# classes = ["right_shoe", "left_shoe"]
+classes = ["right_shoe_self_l", "right_shoe_self_r", "right_shoe_self_o", "right_shoe_other_l", "right_shoe_other_r", "right_shoe_other_o", \
+			"left_shoe_self_l", "letf_shoe_self_r", "left_shoe_self_o", "left_shoe_other_l", "left_shoe_other_r", "left_shoe_other_o"]
+
 
 
 def convert(size, box):
@@ -23,12 +26,12 @@ def convert_annotation(file_name):
     wd = os.getcwd()
     # if not os.path.exists("shoeDatas/lables"):
     #     os.makedirs("shoeDatas/labels")
-    train_file = open("shoeDatas/train.txt", "a")       # 如果是训练集，则改为test.txt
-    train_file.write("%s/shoeDatas/JPEGImages/%s.jpg\n" % (wd, file_name))
+    train_file = open("shoeDatas_2/train.txt", "a")       # 如果是训练集，则改为test.txt
+    train_file.write("%s/shoeDatas_2/JPEGImages/%s.jpg\n" % (wd, file_name))
     train_file.close()
 
-    in_file = open('shoeDatas/Annotations/%s.xml' % file_name)
-    out_file = open('shoeDatas/labels/%s.txt' % file_name, 'w')
+    in_file = open('shoeDatas_2/Annotations/%s.xml' % file_name)
+    out_file = open('shoeDatas_2/labels/%s.txt' % file_name, 'w')
     tree = ET.parse(in_file)
     root = tree.getroot()
     size = root.find('size')

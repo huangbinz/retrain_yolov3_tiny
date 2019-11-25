@@ -1,6 +1,5 @@
-classes= 2
-train  = datasets/shoeDatas/train.txt
-valid  = datasets/shoeDatas/train.txt
+classes= 12
+train  = datasets/shoeDatas_2/train.txt
+valid  = datasets/shoeDatas_2/train.txt
 names = data/shoe.names
 backup = backup
-
