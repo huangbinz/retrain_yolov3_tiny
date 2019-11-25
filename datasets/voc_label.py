@@ -3,9 +3,8 @@ import os
 
 
 # classes = ["right_shoe", "left_shoe"]
-classes = ["right_shoe_self_l", "right_shoe_self_r", "right_shoe_self_o", "right_shoe_other_l", "right_shoe_other_r", "right_shoe_other_o", \
-			"left_shoe_self_l", "letf_shoe_self_r", "left_shoe_self_o", "left_shoe_other_l", "left_shoe_other_r", "left_shoe_other_o"]
-
+classes = ["right_shoe_self_l", "right_shoe_self_r", "right_shoe_self_o", "right_shoe_other_l", "right_shoe_other_r", "right_shoe_other_o",
+           "left_shoe_self_l", "letf_shoe_self_r", "left_shoe_self_o", "left_shoe_other_l", "left_shoe_other_r", "left_shoe_other_o"]
 
 
 def convert(size, box):
@@ -23,9 +22,9 @@ def convert(size, box):
 
 
 def convert_annotation(file_name):
-    wd = os.getcwd()
-    # if not os.path.exists("shoeDatas/lables"):
-    #     os.makedirs("shoeDatas/labels")
+    wd = os.getcwd()        # 获取当前文件所在的绝对路径
+    if not os.path.exists("./shoeDatas_2/lables"):
+        os.makedirs("./shoeDatas_2/labels")
     train_file = open("shoeDatas_2/train.txt", "a")       # 如果是训练集，则改为test.txt
     train_file.write("%s/shoeDatas_2/JPEGImages/%s.jpg\n" % (wd, file_name))
     train_file.close()
@@ -46,11 +45,11 @@ def convert_annotation(file_name):
         cls_id = classes.index(cls)
         xmlbox = obj.find('bndbox')
         b = (float(xmlbox.find('xmin').text), float(xmlbox.find('xmax').text), float(xmlbox.find('ymin').text), float(xmlbox.find('ymax').text))
-        bb = convert((w,h), b)
+        bb = convert((w, h), b)
         out_file.write(str(cls_id) + " " + " ".join([str(a) for a in bb]) + '\n')
 
 
-path = "./shoeDatas/Annotations/"
+path = "./shoeDatas_2/Annotations/"
 file_names = os.listdir(path)
 for file_name in file_names:
     convert_annotation(file_name.split(".")[0])
