@@ -235,14 +235,14 @@ def merge_file(pic_dirs, pic_save_dir, label_dirs, label_save_dir):
 
 
 if __name__ == '__main__':
-    # flip_pictures_lr("../shoeDatas_2/self_images", "../shoeDatas_2/self_images_lr")
-    # flip_pictures_tb("../shoeDatas_2/self_images", "../shoeDatas_2/self_images_tb")
-    # flip_pictures_tb("../shoeDatas_2/self_images_lr", "../shoeDatas_2/self_images_lr_tb")
+    flip_pictures_lr("../shoeDatas_2/self_images", "../shoeDatas_2/self_images_lr")
+    flip_pictures_tb("../shoeDatas_2/self_images", "../shoeDatas_2/self_images_tb")
+    flip_pictures_tb("../shoeDatas_2/self_images_lr", "../shoeDatas_2/self_images_lr_tb")
 
-    # flip_labels_lr("../shoeDatas_2/self_labels", "../shoeDatas_2/self_labels_lr")
-    # flip_labels_tb("../shoeDatas_2/self_labels", "../shoeDatas_2/self_labels_tb")
-    # flip_labels_tb("../shoeDatas_2/self_labels_lr", "../shoeDatas_2/self_labels_lr_tb")
-    
+    flip_labels_lr("../shoeDatas_2/self_labels", "../shoeDatas_2/self_labels_lr")
+    flip_labels_tb("../shoeDatas_2/self_labels", "../shoeDatas_2/self_labels_tb")
+    flip_labels_tb("../shoeDatas_2/self_labels_lr", "../shoeDatas_2/self_labels_lr_tb")
+
     # 将得到的所有图片和label文件合并到一个文件夹里
     pic_dirs = ["../shoeDatas_2/self_images", "../shoeDatas_2/self_images_lr", "../shoeDatas_2/self_images_lr_tb", "../shoeDatas_2/self_images_tb"]
     label_dirs = ["../shoeDatas_2/self_labels", "../shoeDatas_2/self_labels_lr", "../shoeDatas_2/self_labels_lr_tb", "../shoeDatas_2/self_labels_tb"]
