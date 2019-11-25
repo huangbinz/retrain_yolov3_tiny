@@ -20,6 +20,7 @@ def flip_pictures_tb(pic_dir, save_path):
         exit()
     if not os.path.exists(save_path):
         os.mkdir(save_path)
+    print("Beginning flip the pictures in path %s." % pic_dir)
     img_list = os.listdir(pic_dir)
     for item in img_list:
         if not item.endswith(".jpg"):
@@ -30,6 +31,7 @@ def flip_pictures_tb(pic_dir, save_path):
         img = cv2.imread(img_path)
         img = cv2.flip(img, 0)
         cv2.imwrite(img_save, img)
+    print("Flip end, save in %s." % save_path)
 
 
 def flip_pictures_lr(pic_dir, save_path):
@@ -44,6 +46,7 @@ def flip_pictures_lr(pic_dir, save_path):
         exit()
     if not os.path.exists(save_path):
         os.mkdir(save_path)
+    print("Beginning flip the pictures in path %s." % pic_dir)
     img_list = os.listdir(pic_dir)
     for item in img_list:
         if not item.endswith(".jpg"):
@@ -55,6 +58,7 @@ def flip_pictures_lr(pic_dir, save_path):
         img = cv2.imread(img_path)
         img = cv2.flip(img, 1)
         cv2.imwrite(img_save, img)
+    print("Flip end, save in %s." % save_path)
 
 
 def flip_labels_tb(label_dir, save_dir):
@@ -68,6 +72,7 @@ def flip_labels_tb(label_dir, save_dir):
         "The %s directory does not exist.")
     if not os.path.exists(save_dir):
         os.mkdir(save_dir)
+    print("Beginning flip the pictures in path %s." % label_dir)
     label_path_list = glob.glob(os.path.join(label_dir, "*.xml"))
     # 先将xml文件复制一份，后修改相应数据
     for path in label_path_list:
@@ -125,6 +130,7 @@ def flip_labels_tb(label_dir, save_dir):
             ymin.text = yymin
             ymax.text = yymax
         etree.write(save_path, encoding="utf-8", xml_declaration=True)
+    print("Flip end, save in %s." % save_dir)
 
 
 def flip_labels_lr(label_dir, save_dir):
@@ -138,6 +144,7 @@ def flip_labels_lr(label_dir, save_dir):
         "The %s directory does not exist.")
     if not os.path.exists(save_dir):
         os.mkdir(save_dir)
+    print("Beginning flip the pictures in path %s." % label_dir)
     label_path_list = glob.glob(os.path.join(label_dir, "*.xml"))
     # 先将xml文件复制一份，后修改相应数据
     for path in label_path_list:
@@ -195,11 +202,50 @@ def flip_labels_lr(label_dir, save_dir):
             xmin.text = xxmin
             xmax.text = xxmax
         etree.write(save_path, encoding="utf-8", xml_declaration=True)
+    print("Flip end, save in %s." % save_dir)
+
+
+def merge_file(pic_dirs, pic_save_dir, label_dirs, label_save_dir):
+    """
+    将pic_dirs中所有文件夹下的图片复制到pic_save_dir中， 将label_dirs中所有文件夹下的label文件复制到label_save_dir中，并按顺序重新命名
+    :param pic_dirs: list，所有图片所在的文件夹的列表
+    :param pic_save_dir: str，将所有图片保存到的文件夹
+    :param label_dirs: list，所有label文件所在的文件夹的列表
+    :param label_save_dir: str，将所有label文件保存到的文件夹
+    :return:
+    """
+    if not os.path.exists(pic_save_dir):
+        os.mkdir(pic_save_dir)
+    if not os.path.exists(label_save_dir):
+        os.mkdir(label_save_dir)
+    count = 1
+    for i in range(len(pic_dirs)):
+        assert os.path.exists(pic_dirs[i]), "The path %s is not exists." % pic_dirs[i]
+        assert os.path.exists(label_dirs[i]), "The path %s is not exists." % label_dirs[i]
+        pic_dir = pic_dirs[i]
+        label_dir = label_dirs[i]
+
+        pic_paths = os.listdir(pic_dir)
+        for path in pic_paths:
+            img_path = os.path.join(pic_dir, path)
+            label_path = os.path.join(label_dir, path[:-3] + "xml")
+            shutil.copy(img_path, os.path.join(pic_save_dir, str(count) + ".jpg"))
+            shutil.copy(label_path, os.path.join(label_save_dir, str(count) + ".xml"))
+            count += 1
 
 
 if __name__ == '__main__':
-    flip_pictures_lr(r"C:\Users\EDZ\Desktop\img", r"C:\Users\EDZ\Desktop\img_3")
-    # flip_pictures_tb(r"C:\Users\EDZ\Desktop\img", r"C:\Users\EDZ\Desktop\img_2")
+    # flip_pictures_lr("../shoeDatas_2/self_images", "../shoeDatas_2/self_images_lr")
+    # flip_pictures_tb("../shoeDatas_2/self_images", "../shoeDatas_2/self_images_tb")
+    # flip_pictures_tb("../shoeDatas_2/self_images_lr", "../shoeDatas_2/self_images_lr_tb")
 
-    # flip_labels_tb(r"C:\Users\EDZ\Desktop\label", r"C:\Users\EDZ\Desktop\label_2")
-    # flip_labels_lr(r"C:\Users\EDZ\Desktop\label", r"C:\Users\EDZ\Desktop\label_3")
+    # flip_labels_lr("../shoeDatas_2/self_labels", "../shoeDatas_2/self_labels_lr")
+    # flip_labels_tb("../shoeDatas_2/self_labels", "../shoeDatas_2/self_labels_tb")
+    # flip_labels_tb("../shoeDatas_2/self_labels_lr", "../shoeDatas_2/self_labels_lr_tb")
+    
+    # 将得到的所有图片和label文件合并到一个文件夹里
+    pic_dirs = ["../shoeDatas_2/self_images", "../shoeDatas_2/self_images_lr", "../shoeDatas_2/self_images_lr_tb", "../shoeDatas_2/self_images_tb"]
+    label_dirs = ["../shoeDatas_2/self_labels", "../shoeDatas_2/self_labels_lr", "../shoeDatas_2/self_labels_lr_tb", "../shoeDatas_2/self_labels_tb"]
+    pic_save_dir = "../shoeDatas_2/JPEGImages/"
+    label_save_dir = "../shoeDatas_2/Annotations/"
+    merge_file(pic_dirs, pic_save_dir, label_dirs, label_save_dir)

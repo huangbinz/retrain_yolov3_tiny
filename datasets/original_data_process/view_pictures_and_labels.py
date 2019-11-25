@@ -132,8 +132,8 @@ def view_pictures(img_dir, label_dir):
 
 
 if __name__ == '__main__':
-    img_dir = "C:/Users/EDZ/Desktop/self_images"
-    lable_dir = "C:/Users/EDZ/Desktop/self_labels"
+    img_dir = r"D:\python_work\retrain_yolov3_tiny\datasets\shoeDatas_2\self_images_tb"
+    lable_dir = r"D:\python_work\retrain_yolov3_tiny\datasets\shoeDatas_2\self_labels_tb"
     # split_picture_label_file(r"C:\Users\EDZ\Desktop\自拍", img_dir, lable_dir)
     view_pictures(img_dir, lable_dir)
     # read_xml(r"C:\Users\EDZ\Desktop\self_labels\665.xml")
