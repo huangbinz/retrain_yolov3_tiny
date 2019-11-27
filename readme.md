@@ -69,6 +69,12 @@ make
 ./darknet detector train cfg/shoe.data cfg/yolov3-tiny.cfg yolov3-tiny.conv.15
 ```
 
+4）多GPU训练：
+
+```python
+./darknet detector train cfg/shoe.data cfg/yolov3-tiny.cfg yolov3-tiny.conv.15 -gpus 0,1,2,3
+```
+
 
 
 ### 5、测试
